@@ -1,30 +1,5 @@
-Verti by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+🎮 PS4 Türkçe Yama Merkezi
+PlayStation 4 oyunları için hazırladığım güncel ve kaliteli Türkçe yama projelerime aşağıdaki bağlantıdan ulaşabilirsiniz.
 
-
-A super simple + modern responsive website template. Took a slightly different direction
-on the mobile version's slide out nav (floating button versus a full on titlebar).
-
-Demo images* courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
-you can use for pretty much whatever.
-
-(* = Not included)
-
-Feedback, bug reports, and comments are not only welcome, but strongly encouraged :)
-
-AJ
-aj@lkn.io | @ajlkn
-
-
-Credits:
-
-	Demo Images:
-		Unsplash (unsplash.com)
-
-	Icons:
-		Font Awesome (fontawesome.io)
-
-	Other:
-		jQuery (jquery.com)
-		Responsive Tools (github.com/ajlkn/responsive-tools)
+🌐 Web Sitemiz
+Tüm yamaları indirmek ve kurulum rehberlerine göz atmak için sitemizi ziyaret edin: 👉 https://yusuff76.github.io/ps4-oyunlar-turkce/
