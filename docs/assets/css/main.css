@@ -71,7 +71,56 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
+/* Arama Konteyneri */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 1.5em; /* Diğer menü öğeleriyle araya boşluk */
+}
 
+/* Arama Kutusu ve Butonun Birleştiği Alan */
+.search-box {
+    display: flex;
+    background: #f3f3f3; /* Hafif gri arka plan */
+    border-radius: 8px; /* Köşeleri yuvarla */
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+/* Yazı Giriş Alanı */
+.search-box input[type="text"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.9em;
+    padding: 5px;
+    width: 120px; /* Varsayılan genişlik */
+    color: #444;
+}
+
+/* Büyüteç Butonu */
+.search-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ed391b; /* Verti'nin vurgu rengi (kırmızımsı) */
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* Tıklandığında/Odaklandığında Stil Değişimi */
+.search-box:focus-within {
+    background: #fff;
+    border-color: #ed391b;
+    box-shadow: 0 0 5px rgba(237, 57, 27, 0.2);
+}
+
+/* Fare üzerine geldiğinde kutu biraz genişlesin */
+.search-box:hover input[type="text"] {
+    width: 160px;
+}
 /* Basic */
 
 	@-ms-viewport {
