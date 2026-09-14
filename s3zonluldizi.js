@@ -1,5 +1,6 @@
 /**
- * SezonlukDizi / Nuvio — 2026-09-14
+ * SezonlukDizi / Nuvio — 2026-09-14 / v1.0.1
+ * Timer API sunmayan Nuvio ortamlarıyla uyumludur.
  * Eski sağlayıcı dosyasının tamamının yerine kullanın.
  * Desteklenen çözücüler: Sibnet, VidMoly ve doğrudan MP4/HLS.
  * name: TMDB dizi adı; title: kaynak ve dil.
@@ -55,21 +56,22 @@ function request(url, options, session, stage) {
   if (controller) config.signal = controller.signal;
   return new Promise(function(resolve, reject) {
     var finished = false;
-    var timer = setTimeout(function() {
+    var hasTimers = typeof setTimeout === 'function' && typeof clearTimeout === 'function';
+    var timer = hasTimers ? setTimeout(function() {
       finished = true;
       if (controller) controller.abort();
       reject(new Error(stage + ': zaman aşımı'));
-    }, TIMEOUT_MS);
+    }, TIMEOUT_MS) : null;
     Promise.resolve().then(function() { return fetch(url, config); }).then(function(r) {
       if (r.status >= 400) throw new Error(stage + ': HTTP ' + r.status);
       if (session && sameSite(url) && (!r.url || sameSite(r.url))) rememberCookies(r.headers, session);
       return r.text();
     }).then(function(body) {
       if (finished) return;
-      finished = true; clearTimeout(timer); resolve(body);
+      finished = true; if (hasTimers) clearTimeout(timer); resolve(body);
     }, function(e) {
       if (finished) return;
-      finished = true; clearTimeout(timer); reject(new Error(stage + ': ' + e.message));
+      finished = true; if (hasTimers) clearTimeout(timer); reject(new Error(stage + ': ' + e.message));
     });
   });
 }
