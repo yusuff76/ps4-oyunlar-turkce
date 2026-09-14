@@ -1,0 +1,15 @@
+{
+  "name": "SezonlukDizi",
+  "version": "1.0.0",
+  "scrapers": [
+    {
+      "id": "sezonlukdizi",
+      "name": "SezonlukDizi",
+      "version": "1.0.0",
+      "filename": "s3zonluldizi.js",
+      "supportedTypes": ["tv"],
+      "enabled": true,
+      "contentLanguage": ["tr"]
+    }
+  ]
+}
