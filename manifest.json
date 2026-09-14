@@ -1,12 +1,12 @@
 {
   "name": "SezonlukDizi Düzeltme",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scrapers": [
     {
       "id": "sezonlukdizi",
       "name": "SezonlukDizi",
       "description": "Güncel alan adı, dizi adı eşleştirme ve kişisel TMDB ayarı.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": "Original port: @keyiflerolsun / nuvio: Wekmed; local fixes",
       "supportedTypes": ["tv"],
       "filename": "providers/sezonlukdizi.js",
