@@ -1,12 +1,12 @@
 {
-  "name": "SezonlukDizi",
-  "version": "1.0.0",
+  "name": "SezonlukDizi v1.0.1",
+  "version": "1.0.1",
   "scrapers": [
     {
       "id": "sezonlukdizi",
-      "name": "SezonlukDizi",
-      "version": "1.0.0",
-      "filename": "s3zonluldizi.js",
+      "name": "SezonlukDizi v1.0.1",
+      "version": "1.0.1",
+      "filename": "s3zonluldizi.js?v=101",
       "supportedTypes": ["tv"],
       "enabled": true,
       "contentLanguage": ["tr"]
