@@ -2,7 +2,7 @@
 // Promise chains keep this file compatible with Nuvio's dynamic JS runtime.
 var DEFAULT_BASE = 'https://sezonlukdizi.cc';
 // Only needed on older clients that do not expose provider settings.
-var TMDB_API_KEY = '';
+var TMDB_API_KEY = "03e8d7066b5e31249aa673d03b4593ae";
 var UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36';
 
 function onSettings() {
