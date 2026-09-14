@@ -40,8 +40,17 @@ function logError(stage, error) {
 function failure(code) { var error = new Error(code); error.code = code; return error; }
 
 function getStreams(tmdbId, mediaType, season, episode) {
-  if (mediaType !== 'tv') return Promise.resolve([]);
-  if (!/^\d+$/.test(String(tmdbId)) || !/^\d+$/.test(String(season)) || !/^[1-9]\d*$/.test(String(episode))) return Promise.resolve([]);
+  // Desktop/Cinemeta can pass an IMDb ID when the app's own TMDB lookup fails.
+  // Resolve it with this provider's key instead of silently returning no streams.
+  if (mediaType !== 'tv' && mediaType !== 'series') return Promise.resolve([]);
+  var contentId = String(tmdbId || '').trim().replace(/^tmdb[:/]/i, '');
+  var episodeId = contentId.match(/^([^:]+):(\d+):(\d+)$/);
+  if (episodeId) {
+    contentId = episodeId[1];
+    if (season == null) season = episodeId[2];
+    if (episode == null) episode = episodeId[3];
+  }
+  if (!/^(?:\d+|tt\d+)$/.test(contentId) || !/^\d+$/.test(String(season)) || !/^[1-9]\d*$/.test(String(episode))) return Promise.resolve([]);
   var settings = typeof globalThis !== 'undefined' ? (globalThis.SCRAPER_SETTINGS || {}) : {};
   var apiKey = String(settings.tmdbApiKey || TMDB_API_KEY).trim();
   var base = String(settings.baseUrl || DEFAULT_BASE).trim().replace(/\/+$/, '');
@@ -140,12 +149,25 @@ function getStreams(tmdbId, mediaType, season, episode) {
       });
     }).catch(function(error) { logError(name, error); return null; });
   }
-  return Promise.all([
-    request('https://api.themoviedb.org/3/tv/' + tmdbId + '?api_key=' + encodeURIComponent(apiKey) + '&language=tr-TR').then(function(text) {
+  function tmdbInfo() {
+    var resolvedId = /^tt\d+$/.test(contentId)
+      ? request('https://api.themoviedb.org/3/find/' + contentId + '?api_key=' + encodeURIComponent(apiKey) + '&external_source=imdb_id').then(function(text) {
+          var found = JSON.parse(text);
+          var shows = found.tv_results || [];
+          if (shows.length !== 1 || !shows[0].id) throw failure('IMDb dizi kimliği TMDB ile eşleştirilemedi');
+          return String(shows[0].id);
+        })
+      : Promise.resolve(contentId);
+    return resolvedId.then(function(id) {
+      return request('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + encodeURIComponent(apiKey) + '&language=tr-TR');
+    }).then(function(text) {
       var info = JSON.parse(text);
       if (!info.name && !info.original_name) throw failure('TMDB dizi bilgisi alınamadı');
       return info;
-    }),
+    });
+  }
+  return Promise.all([
+    tmdbInfo(),
     request(base + '/js/site.min.js').then(function(js) {
       var alt = js.match(/\/ajax\/dataAlternatif[^\s"']*?\.asp/);
       var embed = js.match(/\/ajax\/dataEmbed[^\s"']*?\.asp/);
